@@ -1,23 +1,18 @@
 package org.insa.pki.certificate_management.dto;
 
 public class KeyGenerationRequest {
+    private String algorithm; // RSA, DSA, EC
+    private String keySize;   // "2048", "1024", or "secp256r1"
 
-    private String algorithm; // RSA, ECC (for now use RSA)
-    private int keySize; // 2048, 4096
+    public KeyGenerationRequest() {}
 
-    public String getAlgorithm() {
-        return algorithm;
-    }
+    public String getAlgorithm() { return algorithm; }
+    public void setAlgorithm(String algorithm) { this.algorithm = algorithm; }
 
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    public int getKeySize() {
-        return keySize;
-    }
-
-    public void setKeySize(int keySize) {
-        this.keySize = keySize;
-    }
+    public String getKeySize() { return keySize; }
+    public void setKeySize(String keySize) { this.keySize = keySize; }
 }
+
+
+
+
