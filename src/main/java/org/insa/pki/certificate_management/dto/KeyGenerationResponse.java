@@ -1,9 +1,9 @@
 package org.insa.pki.certificate_management.dto;
 
 public class KeyGenerationResponse {
+    private final String publicKey;
+    private final String privateKey;
 
-    private String publicKey;
-    private String privateKey;
 
     public KeyGenerationResponse(String publicKey, String privateKey) {
         this.publicKey = publicKey;
@@ -11,10 +11,12 @@ public class KeyGenerationResponse {
     }
 
     public String getPublicKey() {
+
         return publicKey;
     }
 
-    public String getPrivateKey() {
+    public String getPrivateKey()
+    {
         return privateKey;
     }
 }
