@@ -1,0 +1,42 @@
+.medfinder-search-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 24px;
+}
+.medfinder-search-form input,
+.medfinder-search-form select,
+.medfinder-search-form button {
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+.medfinder-search-form button {
+	background: #0a7d5c;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+.medfinder-results-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 16px;
+}
+.medfinder-facility-card {
+	border: 1px solid #e2e2e2;
+	border-radius: 8px;
+	padding: 16px;
+}
+.medfinder-facility-card h3 {
+	margin: 0 0 8px;
+}
+.medfinder-badge {
+	display: inline-block;
+	background: #e6f4ea;
+	color: #0a7d5c;
+	font-size: 12px;
+	padding: 2px 8px;
+	border-radius: 12px;
+	margin-top: 6px;
+}

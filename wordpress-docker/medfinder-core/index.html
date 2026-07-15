@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scriptura — Bible Web App</title>
+  <meta name="description" content="Read scripture, follow devotionals and sermon notes, and save your favorite verses.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <nav class="sidebar">
+    <div class="sidebar-logo">Scriptura</div>
+    <div class="nav-item active" data-target="home">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" data-target="reader">
+      <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 9h8v2h-8zm0 3h4v2h-4zm0-6h8v2h-8z"/></svg>
+      <span>Read</span>
+    </div>
+    <div class="nav-item" data-target="devotionals">
+      <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+      <span>Devotionals</span>
+    </div>
+    <div class="nav-item" data-target="sermons">
+      <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+      <span>Sermons</span>
+    </div>
+    <div class="nav-item" data-target="favorites">
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <span>Favorites</span>
+    </div>
+    <div class="nav-item" data-target="login" id="nav-login">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      <span>Login</span>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="reading-pane">
+
+      <div class="ribbon-track" id="ribbon-track">
+        <div class="ribbon-marker" id="ribbon-marker"></div>
+      </div>
+
+      <section id="home" class="page-view active">
+        <h1>Today</h1>
+        <div class="featured-block">
+          <h3>Verse of the Day</h3>
+          <div id="votd-container"></div>
+        </div>
+        <div class="section-header">
+          <h3>Recent Devotionals</h3>
+          <a href="#" onclick="document.querySelector('[data-target=\'devotionals\']').click(); return false;">View All</a>
+        </div>
+        <div class="card-grid" id="home-devotionals-preview"></div>
+        <div class="section-header">
+          <h3>Latest Sermon Notes</h3>
+          <a href="#" onclick="document.querySelector('[data-target=\'sermons\']').click(); return false;">View All</a>
+        </div>
+        <div class="card-grid" id="home-sermons-preview"></div>
+      </section>
+
+      <section id="reader" class="page-view">
+        <div class="toolbar">
+          <select id="book-select"></select>
+          <input type="number" id="chapter-input" value="3" min="1" style="width:80px;">
+          <select id="translation-select">
+            <option value="web">WEB</option>
+            <option value="kjv">KJV</option>
+            <option value="asv">ASV</option>
+          </select>
+          <button id="load-chapter-btn">Load Chapter</button>
+        </div>
+        <div id="reader-content" class="scripture-text"></div>
+      </section>
+
+      <section id="devotionals" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1>Devotionals</h1>
+            <p class="page-subtitle" id="devotionals-count"></p>
+          </div>
+          <div class="page-search">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="devotionals-search" placeholder="Search devotionals...">
+          </div>
+        </div>
+        <div id="devotionals-list" class="card-grid"></div>
+        <div id="devotionals-detail" class="detail-panel" style="display:none;"></div>
+      </section>
+
+      <section id="sermons" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1>Sermon Notes</h1>
+            <p class="page-subtitle" id="sermons-count"></p>
+          </div>
+          <div class="page-search">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="sermons-search" placeholder="Search sermons...">
+          </div>
+        </div>
+        <div id="sermons-list" class="card-grid"></div>
+        <div id="sermons-detail" class="detail-panel" style="display:none;"></div>
+      </section>
+
+      <section id="favorites" class="page-view">
+        <h1>Favorites</h1>
+        <div id="favorites-list"></div>
+      </section>
+
+      <section id="login" class="page-view">
+        <h1>Account Login</h1>
+        <div id="login-form-container" style="margin-top:2rem;">
+          <form id="login-form" style="display:flex;flex-direction:column;gap:1.5rem;max-width:350px;">
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <label for="login-username" style="font-size:0.9rem;font-weight:500;">WordPress Username</label>
+              <input type="text" id="login-username" placeholder="e.g. jdoe" required style="height:40px;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <label for="login-password" style="font-size:0.9rem;font-weight:500;">Application Password</label>
+              <input type="password" id="login-password" placeholder="xxxx xxxx xxxx xxxx" required style="height:40px;">
+            </div>
+            <button type="submit" class="btn-primary" style="height:44px;">Log In</button>
+          </form>
+          <div id="login-status"></div>
+        </div>
+        <div id="logged-in-container" style="display:none;margin-top:2rem;">
+          <div class="state-container">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            <p>You are logged in as <strong id="current-user"></strong>.</p>
+            <button id="logout-btn" class="btn-primary">Log Out</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/bible.js"></script>
+  <script src="assets/wp-api.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/favorites.js"></script>
+</body>
+</html>
